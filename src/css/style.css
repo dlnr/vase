@@ -1,17 +1,23 @@
-/* @import url() */
+/* @import url(customfont-url) */
 
 :root {
-	--dark: hsl(345, 6%, 13%);
-	--light: hsl(300, 2%, 92%);
+	--dark: hwb(345 12% 86%);
+	--light: hwb(300 92% 8%);
+	--spacer-1: 0.25rem;
+	--spacer-2: 0.5rem;
+	--spacer-3: 1rem;
 
 	--background: var(--light);
 	--foreground: var(--dark);
+
+	--link-color: hwb(212 16% 0%);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
 		--background: var(--dark);
 		--foreground: var(--light);
+		--link-color: hwb(200 100% 50%);
 	}
 }
 
@@ -31,10 +37,55 @@ body {
 	color: var(--foreground);
 	min-block-size: 100%;
 	min-height: 100dvh;
-	place-content: center;
-	display: grid;
 
-	> * {
-		grid-area: 1/1;
+	> div {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--spacer-3);
+
+		@media screen and (min-width: 768px) {
+			grid-template-columns: repeat(12, 1fr);
+		}
 	}
+}
+
+header {
+	grid-column: span 4;
+	grid-template-columns: subgrid;
+
+	display: flex;
+	justify-content: space-between;
+	padding-inline: var(--spacer-3);
+	padding-block: 0.5rem;
+
+	@media screen and (min-width: 768px) {
+		grid-column: 2 / 12;
+	}
+}
+
+main {
+	grid-column: span 4;
+	grid-template-columns: subgrid;
+	padding-inline: var(--spacer-3);
+	padding-block: 0.5rem;
+
+	> img {
+		color: var(--foreground);
+		max-inline-size: 100%;
+		height: auto;
+	}
+
+	@media screen and (min-width: 768px) {
+		grid-column: 2 / 12;
+	}
+}
+
+a {
+	color: var(--link-color);
+}
+
+nav {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--spacer-3);
 }
